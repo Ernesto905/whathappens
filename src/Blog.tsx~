@@ -176,16 +176,23 @@ Contents of section .text:
 
         I took the liberty of adding some comments.
         <SyntaxHighlighter language="cpp">
-          {`bool nsGlobalWindowOuter::AlertOrConfirm(bool aAlert, const nsAString &aMessage,
-                                         nsIPrincipal &aSubjectPrincipal,
-                                         ErrorResult &aError) {
+          {`bool nsGlobalWindowOuter::AlertOrConfirm(bool aAlert, const nsAString& aMessage,
+                                         nsIPrincipal& aSubjectPrincipal,
+                                         ErrorResult& aError) {
   if (!AreDialogsEnabled()) {
+    // Just silently return.  In the case of alert(), the return value is
+    // ignored.  In the case of confirm(), returning false is the same thing as
+    // would happen if the user cancels.
     return false;
   }
 
-  // flag indicating a popup is being opened
+  // Reset popup state while opening a modal dialog, and firing events
+  // about the dialog, to prevent the current state from being active
+  // the whole time a modal dialog is open.
   AutoPopupStatePusher popupStatePusher(PopupBlocker::openAbused, true);
 
+  // Before bringing up the window, unsuppress painting and flush
+  // pending reflows.
   EnsureReflowFlushAndPaint();
 
   nsAutoString title;
@@ -193,18 +200,12 @@ Contents of section .text:
                            "ScriptDlgNullPrincipalHeading", "ScriptDlgHeading",
                            "ScriptDlgGenericHeading");
 
-  // Sanitize alert message for security and rendering issues and places the
-  // sanitized message inside a "final" variable
+  // Remove non-terminating null characters from the
+  // string. See bug #310037.
   nsAutoString final;
   nsContentUtils::StripNullChars(aMessage, final);
   nsContentUtils::PlatformToDOMLineBreaks(final);
 
-  /*
-   * A lot is happening here. Behind the scenes, firefox is employing a factory
-   * pattern to construct our prompt based on the platform (i.e, linux, mac,
-   * windows, mobile, etc.). This is specific to Mozilla's XPCOM architecture.
-   *
-   */
   nsresult rv;
   nsCOMPtr<nsIPromptFactory> promptFac =
       do_GetService("@mozilla.org/prompter;1", &rv);
@@ -213,53 +214,35 @@ Contents of section .text:
     return false;
   }
 
-  /*
-   * Note this is an nsIPrompt, which can best be
-   * thought of as a generic dialogue box, used for both window.alert and
-   * window.prompt.
-   */
   nsCOMPtr<nsIPrompt> prompt;
-
   aError =
       promptFac->GetPrompt(this, NS_GET_IID(nsIPrompt), getter_AddRefs(prompt));
-
   if (aError.Failed()) {
     return false;
   }
 
-  // honestly, i'm not really sure what this does. I dont know everything, man.
+  // Always allow content modal prompts for alert and confirm.
   if (nsCOMPtr<nsIWritablePropertyBag2> promptBag = do_QueryInterface(prompt)) {
     promptBag->SetPropertyAsUint32(u"modalType"_ns,
                                    nsIPrompt::MODAL_TYPE_CONTENT);
   }
 
-  bool result = false; // not used for window.alert()
-
-  // Again, unsure. I'd guess it prevents the user from performing certain
-  // actions on the webpage while the popup is active
+  bool result = false;
   nsAutoSyncOperation sync(mDoc, SyncOperationBehavior::eSuspendInput);
-
-  if (ShouldPromptToBlockDialogs()) { // "¿ Don't allow localhost:5173 to prompt
-                                      // you again"
+  if (ShouldPromptToBlockDialogs()) {
     bool disallowDialog = false;
     nsAutoString label;
-
     MakeMessageWithPrincipal(
         label, &aSubjectPrincipal, true, "ScriptDialogLabelNullPrincipal",
         "ScriptDialogLabelContentPrincipal", "ScriptDialogLabelNullPrincipal");
 
-    // Here is the boundary. The AlertCheck interface performs a
-    // handoff to the program responsible for drawing and rendering the alert
-    // popup on the screen. In our case, it would be GTK. Firefox uses the GTK
-    // library to draw up and the popup. It's considered a widget and lives in:
-    // https://github.com/mozilla-firefox/firefox/tree/main/widget/gtk
     aError = aAlert
                  ? prompt->AlertCheck(title.get(), final.get(), label.get(),
                                       &disallowDialog)
                  : prompt->ConfirmCheck(title.get(), final.get(), label.get(),
                                         &disallowDialog, &result);
 
-    if (disallowDialog) { // You checked the box, didn't you?
+    if (disallowDialog) {
       DisableDialogs();
     }
   } else {

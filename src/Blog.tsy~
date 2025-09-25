@@ -250,8 +250,8 @@ Contents of section .text:
 
     // Here is the boundary. The AlertCheck interface performs a
     // handoff to the program responsible for drawing and rendering the alert
-    // popup on the screen. In our case, it would be GTK. Firefox uses the GTK
-    // library to draw up and the popup. It's considered a widget and lives in:
+    // popup on the screen. In our case, it would be GTK. Firefox hosts the GTK
+    // program as a widget in:
     // https://github.com/mozilla-firefox/firefox/tree/main/widget/gtk
     aError = aAlert
                  ? prompt->AlertCheck(title.get(), final.get(), label.get(),
