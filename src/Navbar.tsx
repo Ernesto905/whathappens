@@ -5,14 +5,14 @@ export function Navbar() {
     <nav className="ml-5 space-x-4">
       <NavLink to="/"
         className={({ isActive }) =>
-          isActive ? "text-green-500" : "text-black"
+          isActive ? "font-bold" : "text-black"
         } end>
 
         Home
       </NavLink>
 
       <NavLink to="/blog" className={({ isActive }) =>
-        isActive ? "text-green-500" : "text-black"
+        isActive ? "font-bold" : "text-black"
       } end>
         Blog
       </NavLink>

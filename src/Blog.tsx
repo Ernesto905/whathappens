@@ -2,28 +2,34 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 
 export default function Blog() {
   return (
-    <div>
-      <h1 className='text-3l font-bold undeline'>
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <h1 className='text-5xl font-bold undeline'>
         whatHappens
       </h1>
+      <br /><br />
 
 
-      <h2>
+      <h2 className='text-2xl text-gray-500'>
         When you click a button on a website
       </h2>
+      <br /><br />
 
-      <h3>
-        Assumptions
-        - X86 CISC Instruction Set Architecture
-        - Arch Operating System
-        - Typescript
-        - React
+      <h3 className='text-2xl'>
+        <p className='text-2l font-bold'>
+          Assumptions<br /><br />
+        </p>
+        - X86 CISC Instruction Set Architecture<br />
+        - Arch Operating System<br />
+        - Wayland display server<br />
+        - Typescript<br />
+        - React<br />
       </h3>
+      <br /><br />
 
-      <p>
-        At the crust of the onion is React. React is a library...<br /><br />
-
-        Actually, on that note, lets get some definitions out of the way.<br /><br />
+      <p className='text-2xl'>
+        <p className='font-bold'>
+          Prereq definitions<br /><br />
+        </p>
 
         A library is a collection of <i>resources</i> which programmers include in their <i>programs</i> so as to not reinvent the wheel.<br /><br />
 
@@ -35,7 +41,13 @@ export default function Blog() {
         These instructions may be represented at different levels of abstraction.<br /><br />
 
         From human readable C code
-        <SyntaxHighlighter language="c">
+        <SyntaxHighlighter
+          wrapLines={true}
+          customStyle={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+          }}
+          language="c">
           {`#include <stdio.h>
 int main() {
   printf("Hello world!");
@@ -45,7 +57,13 @@ int main() {
         </SyntaxHighlighter><br /><br />
 
         to a less readable hexadecimals representation of the machine code (peep the 2nd to 5th column below)
-        <SyntaxHighlighter language="text">
+        <SyntaxHighlighter
+          wrapLines={true}
+          customStyle={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+          }}
+          language="text">
           {`$ objdump -s -j .text main
 
 main:     file format elf64-x86-64
@@ -71,28 +89,56 @@ Contents of section .text:
 1150 ffb80000 00005dc3                    ......].`}
         </SyntaxHighlighter><br /><br />
 
+        <p className='font-bold'>
+          Lets get started<br /><br />
+        </p>
 
-        Now, back to buttons. Take a look at this bad boy<br /><br />
+        At the crust is React. React is a javascript library.<br /><br />
+
+        Take a look at this bad boy<br /><br />
 
         <button
           onClick={() => { window.alert("Hello world!") }}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-700 
+                     text-white font-bold py-2 px-4 
+                     rounded"
         >
           button
         </button>
         <br /><br />
 
-        Its code looks like this:
-        <SyntaxHighlighter language="javascript">
-          {`<button onClick={() => { window.alert("Hello world!") }} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+        This is TSX, Typescript + JSX. JSX is a syntax extension to Javascript. With JSX, we can write html-like markup inside a javascript file. Its code looks like this:
+        <SyntaxHighlighter
+          wrapLines={true}
+          customStyle={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+          }}
+          language="javascript">
+          {`<button
+  onClick={() => { window.alert("Hello world!") }}
+  className="bg-blue-500 hover:bg-blue-700 
+             text-white font-bold py-2 px-4 
+             rounded"
+>
   button
-</button>`
+</button>
+`
           }
         </SyntaxHighlighter>
         <br /><br />
 
         So, what exactly happens when we click that button?
         <br /><br />
+
+
+        {/*TODO: Hardware interrupt*/}
+
+        {/*TODO: OS Kernel -> compositor */}
+
+        {/*TODO: Compositor -> firefox */}
+
+        {/*TODO: firefox event generates */}
 
         First, the code inside the "onClick" gets executed. This code could have been anything, but I chose a basic alert box for the sake of simplicity.
         <br /><br />
@@ -101,17 +147,28 @@ Contents of section .text:
         <br /><br />
 
         Alert is a function and a method associated with the <i>window</i> object. The window object exposes the Window interface. This interface also allows us to interact with the <i>document</i> object through window.document property.
+        <br /><br />
 
-        The document object exposes the Document interface, which is an entry point to the <i>Document Object Model (DOM) </i>Tree. The DOM is an API for interacting with the "document" which is an in-memory <i>representation</i> of the HTML code rendered on web pages. This representation is a tree, where each node represents an element of our HTML (i.e, {`<head>, <body>, <a href=blah>, <p>`}, etc.). Both the Window and Document interface abide by the WebIDL standard
+        The document object exposes the Document interface, which is an entry point to the <i>Document Object Model (DOM) </i>Tree. The DOM is an API for interacting with the "document" which is an in-memory <i>representation</i> of the HTML code rendered on web pages.
+        <br /><br />
+
+        This representation is a tree, where each node represents an element of our HTML (i.e, {`<head>, <body>, <a href=blah>, <p>`}, etc.). Both the Window and Document interface abide by the WebIDL standard
+        <br /><br />
 
         https://webidl.spec.whatwg.org/
+        <br /><br />
 
-        , a common standard for defining interfaces on modern browser.
+        WebIDL is a common standard for defining interfaces on modern browsers.
         <br /><br />
 
 
-        Phew, that got really abstract really fast. Did I lose you? Let's look at some code:
+        Phew, that got really abstract really fast. Did I lose you?
         <br /><br />
+
+        <p className='font-bold'>
+          Let's look at some code
+        </p>
+        <br />
 
 
         In the Firefox source code (sep2025), the exact entrypoint function executed when we click our button is in the dom/base/nsGlobalWindowInner c++ file. Here is the source.
@@ -120,7 +177,13 @@ Contents of section .text:
         <br /><br />
         This is what it looks like
         <br /><br />
-        <SyntaxHighlighter language="cpp">
+        <SyntaxHighlighter
+          wrapLines={true}
+          customStyle={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+          }}
+          language="cpp">
           {`void nsGlobalWindowInner::Alert(const nsAString& aMessage,
                                 nsIPrincipal& aSubjectPrincipal,
                                 ErrorResult& aError) {
@@ -129,8 +192,9 @@ Contents of section .text:
 }
 `}
         </SyntaxHighlighter>
+        <br />
 
-        The function takes in 3 references to 3 variables, with the aMessage (our "Hello world!") being read-only. The 3 references are passed into the FORWARD_TO_OUTER_OR_THROW macro which looks like this
+        The function takes in 3 references to 3 variables, with the aMessage (our "Hello world!") being read-only. The 3 references are passed into the FORWARD_TO_OUTER_OR_THROW macro which looks like this<br /><br />
 
         <SyntaxHighlighter language="cpp">
           {`#define FORWARD_TO_OUTER_OR_THROW(method, args, rv, err_rval)                
@@ -142,18 +206,31 @@ Contents of section .text:
   return err_rval;                                                           \\
   PR_END_MACRO`}
         </SyntaxHighlighter>
+        <br />
 
         This macro takes in a method (AlertOuter from the previous function) and executes said method with the following arguments: aMessage, aSubjectPrincipal, aError.
         <br /><br />
 
-        The method is executed within the context of the <i>outer window</i>. Interestingly, in Firefox, a separation of concerns exists between the inner window (nsGlobalWindowInner class) and outer window (nsGlobalWindowOuter class). The inner window is the Window interface described above, enabling developers to interact with the Document interface and therefore the DOM. The outer window is Mozilla's spin on the <i>windowproxy</i>. The window proxy is an object which wraps the window object. Its purpose is to serve as a proxy and security boundrary for the window object. It is necessary to introduce this wrapper around the window object to ensure important security features within the modern browser, such as CORS. The window proxy is persistent to a <i>browsing context</i>, the window may, however, change. A browsing context is one or more Document objects and one or more <i>views</i>. A view is what you're looking at... more or less.
+        The method is executed within the context of the <i>outer window</i>. Interestingly, in Firefox, a separation of concerns exists between the inner window (nsGlobalWindowInner class) and outer window (nsGlobalWindowOuter class).
         <br /><br />
 
-        Anyways...
+        The inner window is the Window interface described above, enabling developers to interact with the Document interface and therefore the DOM. The outer window is Mozilla's spin on the <i>windowproxy</i>.
         <br /><br />
 
+        The window proxy is an object which wraps the window object. Its purpose is to serve as a proxy and security boundrary for the window object. It is necessary to introduce this wrapper around the window object to ensure important security features within the modern browser, such as CORS.
+        <br /><br />
 
-        The AlertOuter method looks like this:
+        The window proxy is persistent to a <i>browsing context</i>, the window may, however, change. A browsing context is one or more Document objects and one or more <i>views</i>. A view is what you're looking at... more or less.
+        <br /><br />
+
+        <p className='font-bold'>
+          Anyways...
+        </p>
+        <br />
+
+        The AlertOuter method looks like this
+        <br />
+        <br />
         <SyntaxHighlighter language="cpp">
           {`void nsGlobalWindowOuter::AlertOuter(const nsAString& aMessage,
                                      nsIPrincipal& aSubjectPrincipal,
@@ -162,6 +239,7 @@ Contents of section .text:
 }
 `}
         </SyntaxHighlighter>
+        <br />
 
         Within, we execute AlertOrConfirm which is where most of the heavy lifting is. This function also handles prompts which are alert... actually just take a look
         <br /><br />
@@ -175,6 +253,8 @@ Contents of section .text:
         <br /><br />
 
         I took the liberty of adding some comments.
+        <br />
+        <br />
         <SyntaxHighlighter language="cpp">
           {`bool nsGlobalWindowOuter::AlertOrConfirm(bool aAlert, const nsAString &aMessage,
                                          nsIPrincipal &aSubjectPrincipal,
@@ -251,7 +331,7 @@ Contents of section .text:
     // Here is the boundary. The AlertCheck interface performs a
     // handoff to the program responsible for drawing and rendering the alert
     // popup on the screen. In our case, it would be GTK. Firefox uses the GTK
-    // library to draw up and the popup. It's considered a widget and lives in:
+    // library to draw up the popup. It's considered a widget and lives in:
     // https://github.com/mozilla-firefox/firefox/tree/main/widget/gtk
     aError = aAlert
                  ? prompt->AlertCheck(title.get(), final.get(), label.get(),
@@ -271,6 +351,11 @@ Contents of section .text:
 }
 `}
         </SyntaxHighlighter>
+
+        <br />
+
+        {/*TODO: GTK*/}
+        On the linux operating system, the following emacscript
       </p>
 
 
@@ -282,4 +367,4 @@ Contents of section .text:
 
 
 
-                  
+
