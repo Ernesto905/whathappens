@@ -41,7 +41,13 @@ export default function Blog() {
         These instructions may be represented at different levels of abstraction.<br /><br />
 
         From human readable C code
-        <SyntaxHighlighter language="c">
+        <SyntaxHighlighter
+          wrapLines={true}
+          customStyle={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+          }}
+          language="c">
           {`#include <stdio.h>
 int main() {
   printf("Hello world!");
@@ -51,7 +57,13 @@ int main() {
         </SyntaxHighlighter><br /><br />
 
         to a less readable hexadecimals representation of the machine code (peep the 2nd to 5th column below)
-        <SyntaxHighlighter language="text">
+        <SyntaxHighlighter
+          wrapLines={true}
+          customStyle={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+          }}
+          language="text">
           {`$ objdump -s -j .text main
 
 main:     file format elf64-x86-64
@@ -96,7 +108,13 @@ Contents of section .text:
         <br /><br />
 
         This is TSX, Typescript + JSX. JSX is a syntax extension to Javascript. With JSX, we can write html-like markup inside a javascript file. Its code looks like this:
-        <SyntaxHighlighter language="javascript">
+        <SyntaxHighlighter
+          wrapLines={true}
+          customStyle={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+          }}
+          language="javascript">
           {`<button
   onClick={() => { window.alert("Hello world!") }}
   className="bg-blue-500 hover:bg-blue-700 
@@ -159,7 +177,13 @@ Contents of section .text:
         <br /><br />
         This is what it looks like
         <br /><br />
-        <SyntaxHighlighter language="cpp">
+        <SyntaxHighlighter
+          wrapLines={true}
+          customStyle={{
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+          }}
+          language="cpp">
           {`void nsGlobalWindowInner::Alert(const nsAString& aMessage,
                                 nsIPrincipal& aSubjectPrincipal,
                                 ErrorResult& aError) {
@@ -170,7 +194,7 @@ Contents of section .text:
         </SyntaxHighlighter>
         <br />
 
-        The function takes in 3 references to 3 variables, with the aMessage (our "Hello world!") being read-only. The 3 references are passed into the FORWARD_TO_OUTER_OR_THROW macro which looks like this<br />
+        The function takes in 3 references to 3 variables, with the aMessage (our "Hello world!") being read-only. The 3 references are passed into the FORWARD_TO_OUTER_OR_THROW macro which looks like this<br /><br />
 
         <SyntaxHighlighter language="cpp">
           {`#define FORWARD_TO_OUTER_OR_THROW(method, args, rv, err_rval)                
