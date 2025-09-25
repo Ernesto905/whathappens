@@ -1,19 +1,15 @@
 function App() {
 
   return (
-    <div>
-      <h1 className='text-3l font-bold undeline'>
-        whatHappens
-      </h1>
+    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <p className="text-2xl" >
+        The purpose of this site is twofold.<br /><br />
+        (1) I'm looking to build an archive of knowledge I and others can refer to. The content should be accurate and it should prioritize clarity.<br /><br />
+        (2) Writing about something facilitates a deeper understanding of material. It's fun to get better at things.<br />
+      </p><br />
+      <p className="text-2xl" >
 
-      <p>
-        The purpose of this site is twofold.
-        (1) I'm looking to build an archive of knowledge i and others can refer to. The archive should be trustworthy and prioritizes clarity and understanding.
-        (2) I want to become a better engineer. Writing and research facilitates this. It's fun to get better at things.
-      </p>
-
-      <p>
-        This is a work in progress. The layers will be modularized and will need constant updating, especially at higher levels of abstraction, where most people play.
+        This is and will continue to be a work in progress. There are countless layers to turing machines. Concepts within the site will be modular and require constant updating, especially at higher levels of abstraction, where most people play.
       </p>
     </div>
   )
