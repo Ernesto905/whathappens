@@ -18,7 +18,7 @@ export default function Blog() {
         <p className='text-2l font-bold'>
           Assumptions<br /><br />
         </p>
-        - M570 Logitech mouse
+        - M570 Logitech mouse<br />
         - X86 CISC instruction set architecture<br />
         - Arch operating system<br />
         - Wayland display server<br />
@@ -135,20 +135,26 @@ Contents of section .text:
 
         {/*TODO: Hardware interrupt*/}
 
-        Well, what you're actually *clicking* is a micro <i>switch</i>.
-        A switch is an component often found in a circuit. The switch takes in a current of electrons as input, and it can either stop said current or divert it along some other path. When pressed, our micro switch redirects the flow of electrons from one wire to another for as long as it's held (*cough* *cough* dragging things around on your screen). I like to visualize it as the dude pulling the lever on the trolley problem, except instead of manslaugter, we get the internet... and NFTs. Here's what mine looks like:
+        What you're actually *clicking* is a micro <i>switch</i>.<br />
+        A switch is an component often found in a circuit. The switch takes in a current of electrons as input, and it can either stop said current or divert it along some other path. When pressed, our micro switch redirects the flow of electrons from one wire to another for as long as it's held (*cough* *cough* dragging things around on your screen).
+        <br /><br />
+        I like to visualize it as the dude pulling the lever on the trolley problem, except instead of manslaugter, we get the internet... and NFTs. Here's what mine looks like:
+        <br />
         *picture*
         <br /><br />
 
         {/* microswitch pressed */}
 
         The microswitch is soldered onto a printed circuit board (PCB); the green looking thing:
+        <br /><br />
+        *picture*
+        <br /><br />
 
         {/* Picture of PCB */}
         The modern PCB is an engineering marvel. Man I tell you, humans sure are cool!
         <br /><br />
 
-        On my particular pcb, i followed the darker looking lines connected to the mouse's left click button's micro switch. It led me from the switch to a few capacitors, resistors, and eventually an <i>integrated circuit (IC)</i> labeled U4. This will be important later. But first, more definitions!
+        On my particular pcb, i followed the darker looking lines connected to the mouse's left click button's micro switch. It led me from the switch to a few capacitors, resistors, and eventually an <i>integrated circuit (IC)</i> labeled U4. This will be important later. But first, definitions!
         <br /><br />
 
         An integrated circuit (also called a chip or microchip) is same-same, but different than a PCB. Let me explain,
@@ -156,18 +162,21 @@ Contents of section .text:
 
         Generally (frequently || often || usually || pls don't flame me):
         <br />
+        <br />
         PCB: large visible electrical components (capacitor, resistor, transistors, diodes, potentially ram, potentially cache, etc) that live on an electical board... which has been printed.
+        <br />
         <br />
         Integrated circuit: extremely tightly packed electrical components (capacitors, resistors, diodes, transistors, frequently ram, frequently cache, etc) that live on a semiconductor such as silicon. Technically speaking, ICs are considered to be "indivisible for the sake of construction and commerce(https://www.jedec.org/standards-documents/dictionary/terms/integrated-circuit-ic)". These guys are often so tightly packed that it's indiscernable to the human eye just what component is what (i cant stress enough how tightly packed these things are (https://www.youtube.com/watch?v=Fxv3JoS1uY8)).
         <br /><br />
 
         Examples of PCBs: your remote (probably), your keyboard (probably), your toilet (i'm kidding... probably (https://www.youtube.com/watch?v=fMpddn0oXuQ)).
         <br />
-        Examples of Integrated circuits: your CPU, your GPU, your RAM, and the tiny black box-looking component you'd find if you tore apart any of the PCB examples listed above (please don't take apart your toilet).
+        Examples of Integrated circuits: your CPU, your GPU, your RAM, and the tiny black box-looking component you'd find if you tore apart any of the examples listed above (please don't take apart your toilet).
         <br /><br />
 
 
         The U4 Integrated Circuit on my Logitech mouse PCB is a <i>radio frequency (rf) module</i>.
+        <br /><br />
 
 
 
