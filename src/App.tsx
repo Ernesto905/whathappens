@@ -10,6 +10,8 @@ function App() {
       <p className="text-2xl" >
 
         This is and will continue to be a work in progress. There are countless layers to turing machines. Concepts within the site will be modular and require constant updating, especially at higher levels of abstraction, where most people play.
+        <br /><br />
+        Hoping to keep the level of knowledge assumed for each post as that of a CS new-grad with 101 networking, security, and computer architecture experience.
       </p>
     </div>
   )

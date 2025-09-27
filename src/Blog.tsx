@@ -18,7 +18,7 @@ export default function Blog() {
         <p className='text-2l font-bold'>
           Assumptions<br /><br />
         </p>
-        - M570 Logitech mouse<br />
+        - M570 wireless Logitech mouse<br />
         - X86 CISC instruction set architecture<br />
         - Arch operating system<br />
         - Wayland display server<br />
@@ -31,64 +31,6 @@ export default function Blog() {
         <p className='font-bold'>
           Prereq definitions<br /><br />
         </p>
-
-        A library is a collection of <i>resources</i> which programmers include in their <i>programs</i> so as to not reinvent the wheel.<br /><br />
-
-        At the level of abstraction of react, these resources are the human readable source code that we "import".
-        In a compiled language, these resources are often precompiled object files.
-
-        Programs are a collection of <i>instructions</i> that computers interpret to perform actions.<br /><br />
-
-        These instructions may be represented at different levels of abstraction.<br /><br />
-
-        From human readable C code
-        <SyntaxHighlighter
-          wrapLines={true}
-          customStyle={{
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-word',
-          }}
-          language="c">
-          {`#include <stdio.h>
-int main() {
-  printf("Hello world!");
-  return 0;
-}`
-          }
-        </SyntaxHighlighter><br /><br />
-
-        to a less readable hexadecimals representation of the machine code (peep the 2nd to 5th column below)
-        <SyntaxHighlighter
-          wrapLines={true}
-          customStyle={{
-            whiteSpace: 'pre-wrap',
-            wordBreak: 'break-word',
-          }}
-          language="text">
-          {`$ objdump -s -j .text main
-
-main:     file format elf64-x86-64
-
-Contents of section .text:
-1040 f30f1efa 31ed4989 d15e4889 e24883e4  ....1.I..^H..H..
-1050 f0505445 31c031c9 488d3dda 000000ff  .PTE1.1.H.=.....
-1060 155b2f00 00f4662e 0f1f8400 00000000  .[/...f.........
-1070 488d3da1 2f000048 8d059a2f 00004839  H.=./..H.../..H9
-1080 f8741548 8b053e2f 00004885 c07409ff  .t.H..>/..H..t..
-1090 e00f1f80 00000000 c30f1f80 00000000  ................
-10a0 488d3d71 2f000048 8d356a2f 00004829  H.=q/..H.5j/..H)
-10b0 fe4889f0 48c1ee3f 48c1f803 4801c648  .H..H..?H...H..H
-10c0 d1fe7414 488b050d 2f000048 85c07408  ..t.H.../..H..t.
-10d0 ffe0660f 1f440000 c30f1f80 00000000  ..f..D..........
-10e0 f30f1efa 803d2d2f 00000075 33554883  .....=-/...u3UH.
-10f0 3dea2e00 00004889 e5740d48 8b3d0e2f  =.....H..t.H.=./
-1100 0000ff15 d82e0000 e863ffff ffc60504  .........c......
-1110 2f000001 5dc3662e 0f1f8400 00000000  /...].f.........
-1120 c30f1f40 0066662e 0f1f8400 00000000  ...@.ff.........
-1130 f30f1efa e967ffff ff554889 e5488d05  .....g...UH..H..
-1140 c00e0000 4889c7b8 00000000 e8dffeff  ....H...........
-1150 ffb80000 00005dc3                    ......].`}
-        </SyntaxHighlighter><br /><br />
 
         <p className='font-bold'>
           Lets get started<br /><br />
@@ -108,7 +50,7 @@ Contents of section .text:
         </button>
         <br /><br />
 
-        This is TSX, Typescript + JSX. JSX is a syntax extension to Javascript. With JSX, we can write html-like markup inside a javascript file. Its code looks like this:
+        This is TSX, Typescript + <i>JSX</i>. JSX is a syntax extension to Javascript. With JSX, we can write html-like markup inside a javascript file. The button's code looks like this:
         <SyntaxHighlighter
           wrapLines={true}
           customStyle={{
@@ -133,13 +75,11 @@ Contents of section .text:
         <br /><br />
 
 
-        {/*TODO: Hardware interrupt*/}
+        First thing that happens is you press your mouse's left-click. What you're actually *clicking* is a micro <i>switch</i>.<br />
+        A switch is an component often found in a circuit. The switch takes in a current of electrons as input, and it can either stop said current from flowing through it, or divert it along some other path. When pressed, our micro switch redirects the flow of electrons from one wire to another for as long as it's held.
 
-        What you're actually *clicking* is a micro <i>switch</i>.<br />
-        A switch is an component often found in a circuit. The switch takes in a current of electrons as input, and it can either stop said current or divert it along some other path. When pressed, our micro switch redirects the flow of electrons from one wire to another for as long as it's held (*cough* *cough* dragging things around on your screen).
+        <br /><br />Fun fact: I did some back of the napkin math, and every time you click your mouse (assuming 5V, 0.1s click, and 10,000 ohms), you're actually changing the physical trajectory of a about 206 TRILLION electrons. Isn't that crazy?
         <br /><br />
-        I like to visualize it as the dude pulling the lever on the trolley problem, except instead of manslaugter, we get the internet... and NFTs. Here's what mine looks like:
-        <br />
         *picture*
         <br /><br />
 
@@ -150,11 +90,7 @@ Contents of section .text:
         *picture*
         <br /><br />
 
-        {/* Picture of PCB */}
-        The modern PCB is an engineering marvel. Man I tell you, humans sure are cool!
-        <br /><br />
-
-        On my particular pcb, i followed the darker looking lines connected to the mouse's left click button's micro switch. It led me from the switch to a few capacitors, resistors, and eventually an <i>integrated circuit (IC)</i> labeled U4. This will be important later. But first, definitions!
+        On my particular pcb, i followed the darker looking lines connected to the mouse's left click button's micro switch. These lines are copper, and their technical names are "traces" *DOUBLE CHECK*. traces are the highway on which the power flows. The copper traces led me from the switch to a few capacitors, resistors, and eventually an <i>integrated circuit (IC)</i> labeled U4. This will be important later. But first, definitions!
         <br /><br />
 
         An integrated circuit (also called a chip or microchip) is same-same, but different than a PCB. Let me explain,
@@ -169,14 +105,44 @@ Contents of section .text:
         Integrated circuit: extremely tightly packed electrical components (capacitors, resistors, diodes, transistors, frequently ram, frequently cache, etc) that live on a semiconductor such as silicon. Technically speaking, ICs are considered to be "indivisible for the sake of construction and commerce(https://www.jedec.org/standards-documents/dictionary/terms/integrated-circuit-ic)". These guys are often so tightly packed that it's indiscernable to the human eye just what component is what (i cant stress enough how tightly packed these things are (https://www.youtube.com/watch?v=Fxv3JoS1uY8)).
         <br /><br />
 
-        Examples of PCBs: your remote (probably), your keyboard (probably), your toilet (i'm kidding... probably (https://www.youtube.com/watch?v=fMpddn0oXuQ)).
+        Examples of PCBs: your motherboard, the circuit board in your remote (probably), the circuit board in your keyboard (probably), circuit board in your toilet (i'm kidding... probably (https://www.youtube.com/watch?v=fMpddn0oXuQ)).
         <br />
-        Examples of Integrated circuits: your CPU, your GPU, your RAM, and the tiny black box-looking component you'd find if you tore apart any of the examples listed above (please don't take apart your toilet).
+        Examples of Integrated circuits: your CPU, your GPU, your RAM, and the tiny black box-looking component you'd find in any of the examples listed above (please don't take apart your toilet).
         <br /><br />
 
 
-        The U4 Integrated Circuit on my Logitech mouse PCB is a <i>radio frequency (rf) module</i>.
+        The U4 Integrated Circuit on my Logitech mouse PCB is a <i>radio frequency (RF) module</i>. RF modules are tightly packed circuits which are defined by their responsibility: to trasmit or recieve radio waves between two or more devices.
         <br /><br />
+
+        Given we're looking at a wireless mouse, finding something like this makes sense. RF modules come in a couple of flavors. The category we're dealing with is a <i>transceiver module</i>. A transreciever module is an RF module that both emits and recieves radio waves. Cool, so this enables two way communication of radio waves.
+        <br /><br />
+
+        But how are we going from streams of electrons on a copper wire to airborne radiowaves? And where and when exactly are we shooting these photons?
+        <br /><br />
+
+        RF modules are a neat little piece of tech, as is the rest of our PCB. But They need to be programmed. For example, how do we differentiate between a click and drag? What about double clicks?
+        <br /><br />
+
+        There is a second integrated circuit on our pcb, labeled U3. Admittedly, here I need to make an educated guess, since this component was not labeled on the PCB. I believe this is a <i>microcontroller</i>. A microcontroller is a tightly packed circuit on a silicon chip which contains atleast one CPU, memory, and tiny external metal <i>pins</i>. Pins on a micro controller handle input to and output from the microcontroller. My best guess is that when one of our pins is stimulated with a voltage, an <i>interrupt</i> happens.
+        <br /><br />
+
+        An interrupt is a signal to a CPU to execute some code as a response to some event. In our case, the event is our micro controller's pin detecting a change in voltage. I believe that when this code is executed, our microcontroller's CPU writes into a special register. When this register is written into, it triggers an output voltage from another one of our microcontroller's pins. This pin is connected to the RF module through the PCB's copper tracks. The RF module picks up the change in voltage on the track through one of its I/O devices. When this voltage is recognized, the RF module transmits a radio frequencey that is picked up by the USB Dongle, connected to our computer. This is, as i said, my best guess. There was no marking on the PCB for the U3 integrated circuit, so i had to fill in the gaps with the ol' hippcampus + pre-frontal cortex duo.
+        <br /><br />
+
+        Our RF module uses the following communication protocol to send packets to the USB dongle:
+        <br /><br />
+
+        https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/protocols/esb/index.html
+        <br /><br />
+
+        Our USB dongle then receives these packets on an integrated circuit. This IC is, technically a <i>system on a chip</i>. A system on a chip is... a quite ill-defined thing indeed. It's functionally <strong>very</strong> similar to a microcontroller. Similar to a micro contoller, a system on a chip is an integrated circuit that often involes a myriad of electronic components such as CPU(s), memory, input/output, and basic circuit devices like resistors, capacitors, diodes, and more. But unlike micro controllers, a system on a chip is more complex, expensive, and powerful. It might contain a whole operating system, storage, individual micro controllers, GPU(s), etc. Basically, a system on a chip is often, functionally, a whole computer. Whereas micro controllers are often, functionally, a low power, simpler device for handling input, output, and some less-complex logic between components on some circuit. Your phone and VR headset probably have a system on a chip.
+
+
+
+
+        the processor in our microcontroller detects a change in voltage on one of its pinsand executes some instruction(s).
+        <br /><br />
+
 
 
 
