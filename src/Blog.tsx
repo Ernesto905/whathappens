@@ -129,18 +129,22 @@ export default function Blog() {
         An interrupt is a signal to a CPU to execute some code as a response to some event. In our case, the event is our micro controller's pin detecting a change in voltage. I believe that when this code is executed, our microcontroller's CPU writes into a special register. When this register is written into, it triggers an output voltage from another one of our microcontroller's pins. This pin is connected to the RF module through the PCB's copper tracks. The RF module picks up the change in voltage on the track through one of its I/O devices. When this voltage is recognized, the RF module transmits a radio frequencey that is picked up by the USB Dongle, connected to our computer. This is, as i said, my best guess. There was no marking on the PCB for the U3 integrated circuit, so i had to fill in the gaps with the ol' hippcampus + pre-frontal cortex duo.
         <br /><br />
 
-        Our RF module uses the following communication protocol to send packets to the USB dongle:
+        The exact process of building the radio frequency is beyond the scope of this post. But it involves the technique of <i>signal modulation</i>. In short, signal modulation is a process where information is encoded on a radio wave. This is done by first taking a <i>carrier wave</i> such as a sine wave and encoding the byte stream onto it using fancy physics mathy magic. Yeah that's the most you're gonna get out of me for this one.
+        <br /><br />
+
+        Also, if you're interested, the RF module uses the following communication protocol to send packets to the USB dongle:
         <br /><br />
 
         https://docs.nordicsemi.com/bundle/ncs-latest/page/nrf/protocols/esb/index.html
         <br /><br />
 
-        Our USB dongle then receives these packets on an integrated circuit. This IC is, technically a <i>system on a chip</i>. A system on a chip is... a quite ill-defined thing indeed. It's functionally <strong>very</strong> similar to a microcontroller. Similar to a micro contoller, a system on a chip is an integrated circuit that often involes a myriad of electronic components such as CPU(s), memory, input/output, and basic circuit devices like resistors, capacitors, diodes, and more. But unlike micro controllers, a system on a chip is more complex, expensive, and powerful. It might contain a whole operating system, storage, individual micro controllers, GPU(s), etc. Basically, a system on a chip is often, functionally, a whole computer. Whereas micro controllers are often, functionally, a low power, simpler device for handling input, output, and some less-complex logic between components on some circuit. Your phone and VR headset probably have a system on a chip.
+        Our USB dongle receives these packets thanks to its own integrated circuit. Technically, the dongle's IC is a <i>system on a chip</i>. A system on a chip is... a quite ill-defined thing indeed. It's functionally <strong>very</strong> similar to a microcontroller. Just like a micro contoller, a system on a chip is an integrated circuit that involes a myriad of electronic components such as CPU(s), memory, input/output, and basic circuit devices like resistors, capacitors, diodes, and more.
+        <br /><br />
 
+        But unlike micro controllers, a system on a chip is more complex, expensive, and powerful. It might contain a whole operating system, storage, individual micro controllers, GPU(s), etc. Basically, a system on a chip is often, functionally, a whole computer. Whereas micro controllers are often, functionally, a low power, simpler device for handling i/o and some less-complex logic between components on some circuit. Your phone probably has a system on a chip.
+        <br /><br />
 
-
-
-        the processor in our microcontroller detects a change in voltage on one of its pinsand executes some instruction(s).
+        Our system on a chip has a couple components worth mentioning. It has an (enhanced) single core 8501 cpu and an RF transciever module. According to the chip's documentation, the 8501 CPU allots the transciever two interrupts: RFERR (for errors) and RF (for normal operations) interrupt. When the transciever finishes recieving the airborne bytestreaming communicating a left mouse click, a microcontroller workking in tandem with the RF module (but separate from the CPU) sparks a chain of events.
         <br /><br />
 
 
