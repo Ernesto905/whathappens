@@ -78,7 +78,7 @@ export default function Blog() {
         First thing that happens is you press your mouse's left-click. What you're actually *clicking* is a micro <i>switch</i>.<br />
         A switch is an component often found in a circuit. The switch takes in a current of electrons as input, and it can either stop said current from flowing through it, or divert it along some other path. When pressed, our micro switch redirects the flow of electrons from one wire to another for as long as it's held.
 
-        <br /><br />Fun fact: I did some back of the napkin math, and every time you click your mouse (assuming 5V, 0.1s click, and 10,000 ohms), you're actually changing the physical trajectory of a about 206 TRILLION electrons. Isn't that crazy?
+        <br /><br />I did some back of the napkin math, and every time you click your mouse (assuming 5V, 0.1s click, and 10,000 ohms), you're actually changing the physical trajectory of a about 206 TRILLION electrons. Isn't that crazy?
         <br /><br />
         *picture*
         <br /><br />
@@ -144,8 +144,29 @@ export default function Blog() {
         But unlike micro controllers, a system on a chip is more complex, expensive, and powerful. It might contain a whole operating system, storage, individual micro controllers, GPU(s), etc. Basically, a system on a chip is often, functionally, a whole computer. Whereas micro controllers are often, functionally, a low power, simpler device for handling i/o and some less-complex logic between components on some circuit. Your phone probably has a system on a chip.
         <br /><br />
 
-        Our system on a chip has a couple components worth mentioning. It has an (enhanced) single core 8501 cpu and an RF transciever module. According to the chip's documentation, the 8501 CPU allots the transciever two interrupts: RFERR (for errors) and RF (for normal operations) interrupt. When the transciever finishes recieving the airborne bytestreaming communicating a left mouse click, a microcontroller workking in tandem with the RF module (but separate from the CPU) sparks a chain of events.
+        Our system on a chip has a couple components worth mentioning. It has an (enhanced) single core 8051 cpu and an RF transciever module. According to the chip's documentation, the 8051 CPU allots the transciever two interrupts: RFERR (for errors) and RF (for normal operations) interrupt. When the transciever finishes recieving the left mouse-click packets, a chain of events are triggered. The high level logic, all transpiring within our little dongle is as follows:
         <br /><br />
+
+        Within the RF module, the radio wave indicating the mouse click is recieved and <i>demodulated</i>. Demodulation is going from radio wave to digital (zeros and ones in voltages that computers understand). It then sets a flag to "1" within a special register within the RF module. This special register triggers an interrupt, causing our 8051 micro controller to stop what it's doing and run the code responsible for dealing with this interrupt. Likely, this is C code. When run, it interfaces with the <i>USB Controller</i>. The USB controller is a componented in our integrated circuit.
+        <br /><br />
+
+        The USB controller is responsible for constructing a packet with the action (left click) encoded. It places this action in a buffer which our computer then <i>polls</i> from. Polling involves checking for changes every however much time. Our computer notices that the USB buffer has new data inside it. And the handoff occurs between our dongle's system on a chip and our computer's <i>USB host controller</i>.
+        <br /><br />
+        There's alot that can be said about the USB protocol. In many ways, it's conceptually similar to layer 4's TCP and UDP. Bits are organized into packets. And packets have headers and data.
+        <br /><br />
+
+        The USB host controller is an integrated circuit found on your motherboard. On linux, the following command should pull up all PCI and PCI express devices on your computer.
+        <br /><br />
+        <SyntaxHighlighter
+          language="bash">
+          {`lspci`}
+        </SyntaxHighlighter>
+        <br /><br />
+
+
+
+
+
 
 
 
